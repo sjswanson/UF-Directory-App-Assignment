@@ -18,7 +18,7 @@
 
               -->
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
-            <input type="text" class="form-control" placeholder="Search">
+            <input type="text" class="form-control" placeholder="Search" ng-model="search.$">
           </div>
           <div class="tableWrapper">
             <table class="table table-striped table-hover">
@@ -27,17 +27,43 @@
                 <th>Building Name</th>
                 <th></th>
               </tr>
-              <tr ng-repeat="item in listings track by $index">
-                <td ng-click="showDetails($index)">{{item.code}}</td>
-                <td ng-click="showDetails($index)">{{item.name}}</td>
+              <tr ng-repeat="item in listings | filter: search track by $index">
+                <td ng-click="showDetails(item)">{{item.code}}</td>
+                <td ng-click="showDetails(item)">{{item.name}}</td>
+                <td>
+                  <button ng-click="deleteListing(item)">Delete</button>
+                </td>
               </tr>
             </table>
           </div>
-          <!--
-
-              Write an HTML form that adds new listings to the directory
-
-            -->
+            <div class="add_data">
+              <h2> Add a Listing </h2>
+              <form ng-submit="addListing()">
+              <div class="field">
+                <label for="code"> Code: </label>
+                <input id="code" type = "text" placeholder="Code" ng-model="newCode">
+              </div>
+              <div class="field">
+                <label for="name">Building Name: </label>
+                <input id="name" type="text" placeholder="Name" ng-model="newName">
+              </div>
+              <div class="field">
+                <label for="latitude">Latitude: </label>
+                <input id="latitude" type="text" placeholder="Latitude" ng-model="newLatitude">
+              </div>
+              <div class="field">
+                <label for="longitude">Longitude: </label>
+                <input id="longitude" type="text" placeholder="Longitude" ng-model="newLongitude">
+              </div>
+              <div class="field">
+                <label for="address">Address: </label>
+                <input id="address" type="text" placeholder="Address" ng-model="newAddress">
+              </div>                                          
+              <div class="action">
+                <button type="submit">Add Listing</button>
+              </div>
+              </form>
+              </div>
         </div>
         <div class="col-md-6">
           <div class="jumbotron">
